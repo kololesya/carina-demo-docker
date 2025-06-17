@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  carina:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./target:/opt/carina-demo/target
+    environment:
+      TEST_ENV: staging
+    entrypoint: ["bash", "-lc", "mvn test -Denv=${TEST_ENV}"]
