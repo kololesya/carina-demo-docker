@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-	```
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.zebrunner</groupId>
 	<artifactId>carina-demo</artifactId>
@@ -26,6 +24,20 @@
 		<zebrunner-agent.version>1.9.8</zebrunner-agent.version>
 		<suite>helloWorld</suite>
 	</properties>
+
+	<!--repositories>
+		<repository>
+			<id>zebrunner_snapshots</id>
+			<name>zebrunner Snapshots</name>
+			<url>https://public-nexus.zebrunner.com/repository/ce-snapshots/</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories-->
 
 	<dependencies>
 		<dependency>
@@ -69,6 +81,7 @@
 			<artifactId>slf4j-api</artifactId>
 			<version>1.7.30</version>
 		</dependency>
+		<!-- Log4j2 -->
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-api</artifactId>
@@ -79,7 +92,10 @@
 			<artifactId>log4j-core</artifactId>
 			<version>2.17.1</version>
 		</dependency>
+
 		<dependency>
+			<!--we need it to reuse benefits of zebrunner testng agent for webdriver
+				sesssion(s) declaration -->
 			<groupId>net.bytebuddy</groupId>
 			<artifactId>byte-buddy</artifactId>
 			<version>1.14.5</version>
@@ -94,11 +110,11 @@
 			<artifactId>postgresql</artifactId>
 			<version>42.5.5</version>
 		</dependency>
+
 	</dependencies>
 
 	<build>
 		<plugins>
-			<!-- 1) Maven Compiler & Dependency Copy -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -114,7 +130,7 @@
 				<version>3.6.0</version>
 				<executions>
 					<execution>
-						<id>copy-agent</id>
+						<id>copy</id>
 						<phase>initialize</phase>
 						<goals>
 							<goal>copy</goal>
@@ -134,7 +150,6 @@
 				</configuration>
 			</plugin>
 
-			<!-- 2) Test Execution -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
@@ -148,7 +163,6 @@
 				</configuration>
 			</plugin>
 
-			<!-- 3) Generate HTML Report via Serenity -->
 			<plugin>
 				<groupId>net.serenity-bdd.maven.plugins</groupId>
 				<artifactId>serenity-maven-plugin</artifactId>
@@ -162,8 +176,7 @@
 					</execution>
 				</executions>
 			</plugin>
+
 		</plugins>
 	</build>
-	```
-
 </project>
