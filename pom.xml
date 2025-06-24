@@ -155,11 +155,11 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>3.1.0</version>
 				<configuration>
+					<suiteXmlFiles>
+						<suiteXmlFile>src/test/resources/testng_suites/api.xml</suiteXmlFile>
+					</suiteXmlFiles>
 					<argLine>-javaagent:${project.build.directory}/agent/zebrunner-agent.jar</argLine>
 					<useSystemClassLoader>false</useSystemClassLoader>
-					<suiteXmlFiles>
-						<suiteXmlFile>${project.build.directory}/test-classes/testng_suites/${suite}.xml</suiteXmlFile>
-					</suiteXmlFiles>
 				</configuration>
 			</plugin>
 
