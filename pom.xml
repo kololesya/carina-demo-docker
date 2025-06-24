@@ -126,33 +126,38 @@
 				<version>3.11.0</version>
 				<configuration>
 					<release>${java.version}</release>
+					<excludes>
+						<exclude>**/regression/esg/**</exclude>
+					</excludes>
 				</configuration>
 			</plugin>
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
 				<version>3.6.0</version>
 				<executions>
 					<execution>
-						<id>copy</id>
+						<id>copy-agent</id>
 						<phase>initialize</phase>
 						<goals>
 							<goal>copy</goal>
 						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>com.zebrunner</groupId>
+									<artifactId>agent-core</artifactId>
+									<version>${zebrunner-agent.version}</version>
+									<outputDirectory>${project.build.directory}/agent</outputDirectory>
+									<destFileName>zebrunner-agent.jar</destFileName>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
 					</execution>
 				</executions>
-				<configuration>
-					<artifactItems>
-						<artifactItem>
-							<groupId>com.zebrunner</groupId>
-							<artifactId>agent-core</artifactId>
-							<version>${zebrunner-agent.version}</version>
-							<outputDirectory>${project.build.directory}/agent</outputDirectory>
-							<destFileName>zebrunner-agent.jar</destFileName>
-						</artifactItem>
-					</artifactItems>
-				</configuration>
 			</plugin>
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
@@ -161,7 +166,7 @@
 					<argLine>-javaagent:${project.build.directory}/agent/zebrunner-agent.jar</argLine>
 					<useSystemClassLoader>false</useSystemClassLoader>
 					<suiteXmlFiles>
-						<suiteXmlFile>src/test/resources/testng_suites/api.xml</suiteXmlFile>
+						<suiteXmlFile>src/test/resources/testng_suites/${suite}.xml</suiteXmlFile>
 					</suiteXmlFiles>
 				</configuration>
 			</plugin>
